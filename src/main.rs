@@ -1,54 +1,55 @@
+use rand::Rng;
+use std::vec;
 use std::collections::HashMap;
 
-#[derive(Debug)]
-struct Rectangle {
-    width: u32,
-    height: u32,
-}
-
-impl Rectangle {
-    fn area(&self) -> u32 {
-        self.width * self.height
-    }
-
-    fn can_hold(&self, other: &Rectangle) -> bool {
-        self.width > other.width && self.height > other.height
-    }
-}
-
 fn main() {
-    let rect1 = Rectangle {
-        width: 30,
-        height: 50,
-    };
+    let vector = generate_array(11);
+    let median = find_median(&vector);
 
-    let rect2 = Rectangle {
-        width: 10,
-        height: 40,
-    };
+    println!("Vector: {:?}", &vector);
+    println!("Median: {}", median);
+    println!("Mode: {}", find_mode(&vector));
+}
 
-    let rect3 = Rectangle {
-        width: 60,
-        height: 70,
-    };
-
-    println!(
-        "The area of the rectangle is {:?} square pixels",
-        &rect1.area()
-    );
-
-    dbg!("The rectangle struct is: {:#?}", &rect1);
-
-    println!("Can rect1 hold rect2 ? {}", rect1.can_hold(&rect2));
-    println!("Can rect1 hold rect3 ? {}", rect1.can_hold(&rect3));
-
-    let field_name = String::from("Favorite Color");
-    let field_value = String::from("Blue");
+fn find_mode(vector: &Vec<i32>) -> i32 {
 
     let mut map = HashMap::new();
-    map.insert(field_name, field_value);
 
-    for item in &map {
-        println!("{:?}", &item);
+    for item in vector{
+        let count = map.entry(item).or_insert(0);
+        *count += 1;
     }
+
+    let mut mode = vector[0];
+    let mut max_count = 0;
+
+    for(&num, &count) in map.iter() {
+        if count > max_count {
+            mode = *num;
+            max_count = count;
+        }
+    }
+    mode
+}
+
+fn find_median(vector: &Vec<i32>) -> i32 {
+    let half = vector.len() / 2;
+
+    if vector.len() % 2 != 0 {
+        return vector[half];
+    }
+
+    vector[half - 1]
+}
+
+fn generate_array(length: i32) -> Vec<i32> {
+    let mut vector: Vec<i32> = vec![0; length.try_into().unwrap()];
+
+    for element in vector.iter_mut() {
+        let random = rand::thread_rng().gen_range(0..20);
+        *element = random;
+    }
+
+    vector.sort();
+    vector
 }
