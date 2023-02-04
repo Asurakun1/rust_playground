@@ -23,7 +23,6 @@ fn main() {
             _departments[thread_rng().gen_range(0.._departments.len())].to_string(),
         );
     }
-
     let tech_filter: &HashMap<String, String> = &employee_map.into_iter().filter(|(_employee, department)| *department == "Tech").collect();
     println!("{:#?}", tech_filter);
 }
