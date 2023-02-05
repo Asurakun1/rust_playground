@@ -15,5 +15,5 @@ fn main() {
     ];
 
     let departments = vec!["Tech", "Sales", "Accounting", "Cooking", "Cleaning"];
-    println!("{:?}", department(employees, departments, "Cooking"));
+    println!("{:#?}", department(employees, departments, "Cooking"));
 }

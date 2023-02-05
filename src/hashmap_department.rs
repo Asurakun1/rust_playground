@@ -11,7 +11,7 @@ pub mod hashmap_department {
             );
         }
     
-        let tech_filter: HashMap<String, String> = map.into_iter().filter(|(_employee, department)| *department == depar).collect();
+        let tech_filter: HashMap<String, String> = map.into_iter().filter(|(_employee, department)| department == depar).collect();
         let mut tech_sort: Vec<(String, String)> = tech_filter.into_iter().collect();
         tech_sort.sort();
         tech_sort

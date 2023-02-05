@@ -1,4 +1,5 @@
 pub mod pig_latin {
+    
     pub fn pig_latin(word: &String) {
         let mut copy_of_word = String::from(word);
         let first_char = get_first_element(&word);
